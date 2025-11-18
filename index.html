@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kalkulator Rosyad M Hiwari 1710624090</title>
+    <!-- Ini adalah kode HTML yang biasanya diletakkan di dalam bagian <head> sebuah file HTML. Tujuan utamanya adalah untuk memuat resource (sumber daya) eksternal yang akan mengatur tampilan dan gaya (CSS) halaman web Anda. -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+	<link href="style.css" rel="stylesheet">
+
+
+</head>
+<body class="bg-gray-900 text-white min-h-screen flex items-center justify-center p-4">
+
+    <div class="w-full max-w-sm bg-gray-800 rounded-2xl shadow-2xl p-6 space-y-4">
+        
+        <!-- Ini adalah kode HTML yang berfungsi untuk menampilkan gambar status di kalkulator (gambar yang bertuliskan "Kalkulator", "Sukses!", atau "Error!"). -->
+        <div>
+            <img id="statusImage" 
+                 src="https://placehold.co/400x100/374151/E5E7EB?text=Kalkulator" 
+                 alt="Status Kalkulator"
+                 class="w-full rounded-lg transition-all duration-300 ease-in-out shadow-inner">
+        </div>
+
+        <!-- Ini adalah kode HTML yang mendefinisikan layar (display) utama kalkulator. Ini adalah elemen <input> (kotak input teks) tempat semua angka dan hasil perhitungan akan muncul. -->
+        <div class="bg-gray-900 rounded-lg p-4 shadow-inner">
+            <input type="text" id="display" 
+                   class="w-full bg-transparent text-right text-5xl font-mono text-white border-0 outline-none p-2" 
+                   readonly 
+                   placeholder="0">
+        </div>
+
+        <!-- Ini adalah kode HTML yang menggunakan class dari Tailwind CSS untuk membuat sebuah container (pembungkus) dengan tata letak (layout) grid -->
+        <div class="grid grid-cols-4 gap-3">
+            <!-- Ini adalah kode HTML yang mendefinisikan empat tombol (buttons) kalkulator -->
+            <button data-value="C" class="btn-calc text-2xl font-bold bg-red-600 hover:bg-red-500 rounded-lg p-5 shadow-md text-white">C</button>
+            <button data-value="DEL" class="btn-calc text-2xl font-bold bg-gray-600 hover:bg-gray-500 rounded-lg p5 shadow-md text-white">Delete</button>
+            <button data-value="%" class="btn-calc text-2xl font-bold bg-gray-600 hover:bg-gray-500 rounded-lg p-5 shadow-md text-white">%</button>
+            <button data-value="/" class="btn-calc text-2xl font-bold bg-blue-600 hover:bg-blue-500 rounded-lg p-5 shadow-md text-white">/</button>
+
+            <!--  Ini adalah kode HTML yang mendefinisikan satu baris tombol (terdiri dari empat tombol) untuk kalkulator  Baris ini kemungkinan besar adalah baris kedua dari tombol, yang berisi angka 7, 8, 9, dan operator kali (*) -->
+            <button data-value="7" class="btn-calc text-2xl font-bold bg-gray-700 hover:bg-gray-600 rounded-lg p-5 shadow-md text-white">7</button>
+            <button data-value="8" class="btn-calc text-2xl font-bold bg-gray-700 hover:bg-gray-600 rounded-lg p-5 shadow-md text-white">8</button>
+            <button data-value="9" class="btn-calc text-2xl font-bold bg-gray-700 hover:bg-gray-600 rounded-lg p-5 shadow-md text-white">9</button>
+            <button data-value="*" class="btn-calc text-2xl font-bold bg-blue-600 hover:bg-blue-500 rounded-lg p-5 shadow-md text-white">*</button>
+
+            <!--  Ini adalah kode HTML yang mendefinisikan satu baris tombol (terdiri dari empat tombol) untuk kalkulator, Baris ini berisi tombol angka '4', '5', '6', dan tombol operator '-' (kurang) -->
+            <button data-value="4" class="btn-calc text-2xl font-bold bg-gray-700 hover:bg-gray-600 rounded-lg p-5 shadow-md text-white">4</button>
+            <button data-value="5" class="btn-calc text-2xl font-bold bg-gray-700 hover:bg-gray-600 rounded-lg p-5 shadow-md text-white">5</button>
+            <button data-value="6" class="btn-calc text-2xl font-bold bg-gray-700 hover:bg-gray-600 rounded-lg p-5 shadow-md text-white">6</button>
+            <button data-value="-" class="btn-calc text-2xl font-bold bg-blue-600 hover:bg-blue-500 rounded-lg p-5 shadow-md text-white">-</button>
+
+            <!--  Baris ini berisi tombol angka '1', '2', '3', dan tombol operator '+' (tambah)  -->
+            <button data-value="1" class="btn-calc text-2xl font-bold bg-gray-700 hover:bg-gray-600 rounded-lg p-5 shadow-md text-white">1</button>
+            <button data-value="2" class="btn-calc text-2xl font-bold bg-gray-700 hover:bg-gray-600 rounded-lg p-5 shadow-md text-white">2</button>
+            <button data-value="3" class="btn-calc text-2xl font-bold bg-gray-700 hover:bg-gray-600 rounded-lg p-5 shadow-md text-white">3</button>
+            <button data-value="+" class="btn-calc text-2xl font-bold bg-blue-600 hover:bg-blue-500 rounded-lg p-5 shadow-md text-white">+</button>
+
+            <!--  Ini adalah kode HTML yang mendefinisikan baris terakhir dari tombol-tombol kalkulator. Baris ini unik karena tombol-tombolnya tidak berukuran sama dan memiliki fungsi khusus  -->
+            <button data-value="0" class="btn-calc col-span-2 text-2xl font-bold bg-gray-700 hover:bg-gray-600 rounded-lg p-5 shadow-md text-white">0</button>
+            <button data-value="." class="btn-calc text-2xl font-bold bg-gray-700 hover:bg-gray-600 rounded-lg p-5 shadow-md text-white">.</button>
+            <button data-value="=" class="btn-calc text-2xl font-bold bg-green-600 hover:bg-green-500 rounded-lg p-5 shadow-md text-white">=</button>
+        </div>
+
+    </div>
+
+    
+<script src="js.js"></script>
+	
+</body>
+</html>

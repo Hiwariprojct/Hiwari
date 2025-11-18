@@ -1,0 +1,13 @@
+        /* Menggunakan font Inter */
+        body {
+            font-family: 'helvetica', poppins;
+        }
+        /* Efek klik tombol yang lebih baik */
+        .btn-calc {
+            transition: all 0.4s ease-out;
+        }
+        .btn-calc:active {
+            transform: scale(0.95);
+            box-shadow: 0 100px 100px rgba(0,0,0,0.2);
+        }
+    
