@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hi Curl. - Solusi Rambut Keriting</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                    },
+                    animation: {
+                        'spin-slow': 'spin 12s linear infinite',
+                        'float': 'float 6s ease-in-out infinite',
+                        'float-delayed': 'float 6s ease-in-out 3s infinite',
+                        'fade-in-up': 'fadeInUp 0.8s ease-out forwards',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-20px)' },
+                        },
+                        fadeInUp: {
+                            '0%': { opacity: '0', transform: 'translateY(20px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        /* Glassmorphism Utilities */
+        .glass {
+            background: rgba(255, 255, 255, 0.4);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.05);
+        }
+        
+        .glass-card {
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            box-shadow: 0 8px 32px rgba(183, 148, 115, 0.1);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .glass-card:hover {
+            transform: translateY(-8px);
+            background: rgba(255, 255, 255, 0.8);
+            box-shadow: 0 20px 40px rgba(183, 148, 115, 0.15);
+            border-color: rgba(255, 255, 255, 0.9);
+        }
+
+        .glass-dark {
+            background: rgba(28, 25, 23, 0.85);
+            backdrop-filter: blur(12px);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* Smooth Accordion */
+        .accordion-content {
+            transition: max-height 0.6s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.6s ease;
+            max-height: 0;
+            opacity: 0;
+            overflow: hidden;
+        }
+        .accordion-content.active {
+            max-height: 600px;
+            opacity: 1;
+        }
+
+        /* Scroll Reveal Utility */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease-out;
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Ambient Background Blobs */
+        .blob {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.6;
+            z-index: -1;
+        }
+    </style>
+</head>
+<body class="font-sans text-stone-800 bg-[#FAF9F6] overflow-x-hidden selection:bg-orange-200 selection:text-orange-900">
+
+    <!-- Ambient Background -->
+    <div class="fixed inset-0 overflow-hidden pointer-events-none">
+        <div class="blob bg-orange-200 w-96 h-96 top-0 -left-20 animate-float"></div>
+        <div class="blob bg-green-100 w-[500px] h-[500px] bottom-0 -right-20 animate-float-delayed"></div>
+        <div class="blob bg-yellow-100 w-64 h-64 top-1/2 left-1/3 opacity-30 animate-pulse"></div>
+    </div>
+
+ <!-- Navbar (Glass) -->
+    <nav id="navbar" class="fixed w-full z-50 transition-all duration-500 py-6">
+        <div class="container mx-auto px-8 max-w-7xl">
+            <div id="nav-container" class="flex justify-between items-center rounded-full px-8 py-4 transition-all duration-300">
+                <a href="website curl.html #home" class="text-2xl font-bold font-serif text-orange-900 tracking-wider relative group">
+                    Hi Curl.
+                    <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-orange-600 transition-all duration-300 group-hover:w-full"></span>
+                </a>
+                
+                <div class="hidden md:flex space-x-10 font-medium text-stone-600 text-sm tracking-wide">
+                    <a href="Website Curl.html #home" class="hover:text-orange-600 transition-colors relative group">
+                        Beranda
+                        <span class="absolute -bottom-1 left-1/2 w-0 h-0.5 bg-orange-400 transition-all duration-300 group-hover:w-full group-hover:left-0"></span>
+                    </a>
+                    <a href="Website Curl.html #consultation" class="hover:text-orange-600 transition-colors relative group">
+                        Konsultasi
+                         <span class="absolute -bottom-1 left-1/2 w-0 h-0.5 bg-orange-400 transition-all duration-300 group-hover:w-full group-hover:left-0"></span>
+                    </a>
+                    <a href="Tab shop.html" class="hover:text-orange-600 transition-colors relative group">
+                        Produk
+                         <span class="absolute -bottom-1 left-1/2 w-0 h-0.5 bg-orange-400 transition-all duration-300 group-hover:w-full group-hover:left-0"></span>
+                    </a>
+                    <a href="Website Curl.html #education" class="hover:text-orange-600 transition-colors relative group">
+                        Edukasi
+                         <span class="absolute -bottom-1 left-1/2 w-0 h-0.5 bg-orange-400 transition-all duration-300 group-hover:w-full group-hover:left-0"></span>
+                    </a>
+                </div>
+
+                <div class="flex items-center space-x-6">
+                     <button onclick="document.location='login page.html'"class="hidden md:block bg-stone-900 text-white px-6 py-2.5 rounded-full text-sm font-medium hover:bg-orange-700 hover:shadow-lg hover:shadow-orange-200 transition-all duration-300 transform hover:-translate-y-0.5">
+                        Member Login
+                    </button>
+                    <button id="menu-btn" class="md:hidden text-stone-800 hover:bg-stone-100 p-2 rounded-full transition-colors">
+                        <i data-lucide="menu" class="w-6 h-6"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu (Glass) -->
+        <div id="mobile-menu" class="hidden absolute top-24 left-4 right-4 glass rounded-2xl p-6 flex-col space-y-4 md:hidden shadow-xl transform origin-top transition-all duration-300">
+            <a href="#home" class="text-stone-700 font-medium block py-3 px-4 hover:bg-white/50 rounded-xl transition-colors" onclick="toggleMenu()">Beranda</a>
+            <a href="#consultation" class="text-stone-700 font-medium block py-3 px-4 hover:bg-white/50 rounded-xl transition-colors" onclick="toggleMenu()">Konsultasi</a>
+            <a href="#products" class="text-stone-700 font-medium block py-3 px-4 hover:bg-white/50 rounded-xl transition-colors" onclick="toggleMenu()">Produk</a>
+            <button class="bg-orange-600 text-white px-4 py-3 rounded-xl text-center font-bold w-full shadow-lg">Login</button>
+        </div>
+    </nav>
+
+<!-- Products Section -->
+    <section id="products" class="py-32 relative">
+        <div class="container mx-auto px-8 max-w-7xl">
+            <div class="flex flex-col md:flex-row justify-between items-end mb-16 reveal">
+                <div>
+                    <span class="text-orange-600 font-bold tracking-[0.2em] uppercase text-xs mb-4 block">Beli produknya disini</span>
+                    <h2 class="text-5xl font-serif font-bold text-stone-900">Koleksi Wajib Punya</h2>
+                </div>
+                <a href="https://shopee.co.id/search?keyword=perawatan%20rambut%20keriting" class="group hidden md:flex items-center gap-3 text-stone-900 font-bold text-lg hover:text-orange-600 transition-colors">
+                    Lihat Semua Produk 
+                    <div class="w-10 h-10 rounded-full border border-stone-200 flex items-center justify-center group-hover:bg-orange-600 group-hover:text-white group-hover:border-orange-600 transition-all">
+                        <i data-lucide="arrow-right" class="w-5 h-5"></i>
+                    </div>
+                </a>
+            </div>
+
+            <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-10">
+                
+                <!-- Product 1 -->
+                <div class="group glass-card rounded-3xl p-5 hover:border-orange-200 transition-all duration-500 reveal delay-100">
+                    <div class="relative mb-6 rounded-2xl overflow-hidden aspect-[4/5] bg-stone-100">
+                        <div class="absolute inset-0 bg-stone-200 animate-pulse hidden" id="skeleton-1"></div>
+                        <img src="sampo.webp" alt="Shampoo" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                        
+                        <div class="absolute top-4 left-4">
+                            <span class="glass px-4 py-2 rounded-full text-xs font-bold text-stone-900 backdrop-blur-md">Best Seller</span>
+                        </div>
+                        
+                        <button onclick="document.location='https://www.amazon.ae/SUNSILK-Collagen-Shampoo-Moisture-Hyaluronic/dp/B0CSSMPXZM?th=1'"class="absolute bottom-4 right-4 w-12 h-12 glass rounded-full flex items-center justify-center text-stone-900 hover:bg-stone-900 hover:text-white transition-all transform translate-y-16 group-hover:translate-y-0 opacity-0 group-hover:opacity-100 shadow-lg">
+                            <i data-lucide="plus" class="w-6 h-6"></i>
+                        </button>
+                    </div>
+                    <div class="space-y-2">
+                        <div class="flex justify-between items-start">
+                            <h3 class="font-bold text-lg text-stone-900 group-hover:text-orange-800 transition-colors leading-tight w-2/3">Moisture Bomb Shampoo</h3>
+                            <p class="text-orange-600 font-bold whitespace-nowrap">160k</p>
+                        </div>
+                        <p class="text-xs text-stone-500">Sunsilk Collagen Blends Moisture</p>
+                    </div>
+                </div>
+
+                <!-- Product 2 -->
+                <div class="group glass-card rounded-3xl p-5 hover:border-orange-200 transition-all duration-500 reveal delay-200">
+                    <div class="relative mb-6 rounded-2xl overflow-hidden aspect-[4/5] bg-stone-100">
+                        <img src="melao2.jpg" alt="Cream" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                        
+                        <div class="absolute top-4 left-4">
+                            <span class="glass px-4 py-2 rounded-full text-xs font-bold text-stone-900 backdrop-blur-md">Styling</span>
+                        </div>
+                        
+                        <button onclick="document.location='https://singaimpor.com/p_341473'" class="absolute bottom-4 right-4 w-12 h-12 glass rounded-full flex items-center justify-center text-stone-900 hover:bg-stone-900 hover:text-white transition-all transform translate-y-16 group-hover:translate-y-0 opacity-0 group-hover:opacity-100 shadow-lg">
+                            <i data-lucide="plus" class="w-6 h-6"></i>
+                        </button>
+                    </div>
+                    <div class="space-y-2">
+                        <div class="flex justify-between items-start">
+                            <h3 class="font-bold text-lg text-stone-900 group-hover:text-orange-800 transition-colors leading-tight w-2/3">Curl Defining Cream</h3>
+                            <p class="text-orange-600 font-bold whitespace-nowrap">120k</p>
+                        </div>
+                        <p class="text-xs text-stone-500">Melao Curl Cream</p>
+                    </div>
+                </div>
+
+                <!-- Product 3 -->
+                <div class="group glass-card rounded-3xl p-5 hover:border-orange-200 transition-all duration-500 reveal delay-300">
+                    <div class="relative mb-6 rounded-2xl overflow-hidden aspect-[4/5] bg-stone-100">
+                        <img src="putri1.jpg" alt="Gel" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                        
+                        <div class="absolute top-4 left-4">
+                            <span class="glass px-4 py-2 rounded-full text-xs font-bold text-stone-900 backdrop-blur-md">Hold</span>
+                        </div>
+                        
+                        <button onclick="document.location='https://shopee.co.id/Putri-Style-Wet-Jelly-100ml-Non-Sticky-Hair-Cream-i.217231431.23277763731?extraParams=%7B%22display_model_id%22%3A108166406829%2C%22model_selection_logic%22%3A2%7D&sp_atk=4b929629-4ba4-4186-befe-e5f1f68059d9&xptdk=4b929629-4ba4-4186-befe-e5f1f68059d9'" class="absolute bottom-4 right-4 w-12 h-12 glass rounded-full flex items-center justify-center text-stone-900 hover:bg-stone-900 hover:text-white transition-all transform translate-y-16 group-hover:translate-y-0 opacity-0 group-hover:opacity-100 shadow-lg">
+                            <i data-lucide="plus" class="w-6 h-6"></i>
+                        </button>
+                    </div>
+                    <div class="space-y-2">
+                        <div class="flex justify-between items-start">
+                            <h3 class="font-bold text-lg text-stone-900 group-hover:text-orange-800 transition-colors leading-tight w-2/3">Anti-Frizz Strong Gel</h3>
+                            <p class="text-orange-600 font-bold whitespace-nowrap">20k</p>
+                        </div>
+                        <p class="text-xs text-stone-500">Putri Style Wet Jelly</p>
+                    </div>
+                </div>
+
+                <!-- Product 4 -->
+                <div class="group glass-card rounded-3xl p-5 hover:border-orange-200 transition-all duration-500 reveal delay-400">
+                    <div class="relative mb-6 rounded-2xl overflow-hidden aspect-[4/5] bg-stone-100">
+                        <img src="bonet.jpg" alt="Bonnet" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                        
+                        <div class="absolute top-4 left-4">
+                            <span class="glass px-4 py-2 rounded-full text-xs font-bold text-stone-900 backdrop-blur-md">Tools</span>
+                        </div>
+                        
+                        <button onclick="document.location='https://shopee.co.id/Hair-bonnet-bahan-satin-silk-premium-pelindung-rambut-saat-tidur-i.1479648209.42620379126?extraParams=%7B%22display_model_id%22%3A228190174739%2C%22model_selection_logic%22%3A2%7D&sp_atk=32792ef0-0a5a-4a1b-9d3b-514f4d70b7b9&xptdk=32792ef0-0a5a-4a1b-9d3b-514f4d70b7b9'" class="absolute bottom-4 right-4 w-12 h-12 glass rounded-full flex items-center justify-center text-stone-900 hover:bg-stone-900 hover:text-white transition-all transform translate-y-16 group-hover:translate-y-0 opacity-0 group-hover:opacity-100 shadow-lg">
+                            <i data-lucide="plus" class="w-6 h-6"></i>
+                        </button>
+                    </div>
+                    <div class="space-y-2">
+                        <div class="flex justify-between items-start">
+                            <h3 class="font-bold text-lg text-stone-900 group-hover:text-orange-800 transition-colors leading-tight w-2/3">Hair Bonet Tidur</h3>
+                            <p class="text-orange-600 font-bold whitespace-nowrap">40k</p>
+                        </div>
+                        <p class="text-xs text-stone-500">SV Silk</p>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="mt-16 text-center md:hidden">
+                <a href="#" class="inline-flex items-center gap-2 text-stone-900 font-bold border-b-2 border-stone-900 pb-1">
+                    Lihat Semua Produk <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+	
+	 <!-- Footer -->
+    <footer class="bg-[#1c1917] text-stone-400 py-10 relative overflow-hidden">
+        <div class="container mx-auto px-8 max-w-7xl mt-1 pt-8 border-t border-white/5 text-center text-xs text-stone-600 flex flex-col md:flex-row justify-between items-center gap-4">
+            <p>© 2024 Hi Curl. Indonesia. All rights reserved.</p>
+            <div class="flex gap-6">
+                <a href="#" class="hover:text-white transition-colors">Privacy Policy</a>
+                <a href="#" class="hover:text-white transition-colors">Terms of Service</a>
+            </div>
+        </div>
+    </footer>
+    <!-- JavaScript Logic -->
+    <script>
+        // Initialize Icons
+        lucide.createIcons();
+
+        // DOM Elements
+        const navbar = document.getElementById('navbar');
+        const navContainer = document.getElementById('nav-container');
+        const menuBtn = document.getElementById('menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const problemCards = document.querySelectorAll('.problem-card');
+
+        // Scroll Effect for Navbar (Floating Glass Pill)
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navContainer.classList.add('glass', 'shadow-md', 'py-3');
+                navContainer.classList.remove('py-4');
+            } else {
+                navContainer.classList.remove('glass', 'shadow-md', 'py-3');
+                navContainer.classList.add('py-4');
+            }
+        });
+
+        // Scroll Reveal Animation Observer
+        const revealElements = document.querySelectorAll('.reveal');
+        
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, {
+            threshold: 0.1,
+            rootMargin: "0px 0px -50px 0px"
+        });
+
+        revealElements.forEach(el => revealObserver.observe(el));
+
+        // Mobile Menu Toggle
+        function toggleMenu() {
+            mobileMenu.classList.toggle('hidden');
+            mobileMenu.classList.toggle('flex');
+            
+            if (!mobileMenu.classList.contains('hidden')) {
+                // Simple entry animation
+                mobileMenu.style.opacity = '0';
+                mobileMenu.style.transform = 'translateY(-10px)';
+                setTimeout(() => {
+                    mobileMenu.style.opacity = '1';
+                    mobileMenu.style.transform = 'translateY(0)';
+                }, 10);
+            }
+        }
+
+        menuBtn.addEventListener('click', toggleMenu);
+
+        // Problem Cards Interactive Logic
+        problemCards.forEach(card => {
+            card.addEventListener('click', function() {
+                const isAlreadyActive = this.classList.contains('active-card');
+                
+                // Reset all cards first
+                problemCards.forEach(c => {
+                    // Remove active state
+                    c.classList.remove('active-card', 'border-orange-500', 'bg-white/80', 'ring-1', 'ring-orange-300');
+                    // Reset icon color
+                    const iconContainer = c.querySelector('.icon-container');
+                    iconContainer.classList.remove('bg-orange-500', 'text-white', 'rotate-12');
+                    iconContainer.classList.add('bg-white', 'text-stone-800');
+                    
+                    // Close accordion
+                    const content = c.querySelector('.accordion-content');
+                    content.classList.remove('active');
+
+                    // Show text
+                    const viewText = c.querySelector('.view-solution-text');
+                    viewText.style.display = 'flex';
+                    viewText.style.opacity = '1';
+                });
+
+                // If it wasn't active before, activate it now
+                if (!isAlreadyActive) {
+                    this.classList.add('active-card', 'border-orange-500', 'bg-white/90', 'ring-1', 'ring-orange-300');
+                    
+                    // Animate Icon
+                    const iconContainer = this.querySelector('.icon-container');
+                    iconContainer.classList.remove('bg-white', 'text-stone-800');
+                    iconContainer.classList.add('bg-orange-500', 'text-white', 'rotate-12');
+
+                    // Open Content
+                    const content = this.querySelector('.accordion-content');
+                    content.classList.add('active');
+
+                    // Hide text smoothly
+                    const viewText = this.querySelector('.view-solution-text');
+                    viewText.style.opacity = '0';
+                    setTimeout(() => viewText.style.display = 'none', 300);
+                }
+            });
+        });
+    </script>
+</body>
+</html>

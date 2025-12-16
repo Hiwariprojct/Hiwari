@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hi Curl. - Solusi Rambut Keriting</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                    },
+                    animation: {
+                        'spin-slow': 'spin 12s linear infinite',
+                        'float': 'float 6s ease-in-out infinite',
+                        'float-delayed': 'float 6s ease-in-out 3s infinite',
+                        'fade-in-up': 'fadeInUp 0.8s ease-out forwards',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-20px)' },
+                        },
+                        fadeInUp: {
+                            '0%': { opacity: '0', transform: 'translateY(20px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        /* Glassmorphism Utilities */
+        .glass {
+            background: rgba(255, 255, 255, 0.4);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.05);
+        }
+        
+        .glass-card {
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            box-shadow: 0 8px 32px rgba(183, 148, 115, 0.1);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .glass-card:hover {
+            transform: translateY(-8px);
+            background: rgba(255, 255, 255, 0.8);
+            box-shadow: 0 20px 40px rgba(183, 148, 115, 0.15);
+            border-color: rgba(255, 255, 255, 0.9);
+        }
+
+        .glass-dark {
+            background: rgba(28, 25, 23, 0.85);
+            backdrop-filter: blur(12px);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* Smooth Accordion */
+        .accordion-content {
+            transition: max-height 0.6s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.6s ease;
+            max-height: 0;
+            opacity: 0;
+            overflow: hidden;
+        }
+        .accordion-content.active {
+            max-height: 600px;
+            opacity: 1;
+        }
+
+        /* Scroll Reveal Utility */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease-out;
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Ambient Background Blobs */
+        .blob {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.6;
+            z-index: -1;
+        }
+    </style>
+</head>
+<body class="font-sans text-stone-800 bg-[#FAF9F6] overflow-x-hidden selection:bg-orange-200 selection:text-orange-900">
+
+    <!-- Ambient Background -->
+    <div class="fixed inset-0 overflow-hidden pointer-events-none">
+        <div class="blob bg-orange-200 w-96 h-96 top-0 -left-20 animate-float"></div>
+        <div class="blob bg-green-100 w-[500px] h-[500px] bottom-0 -right-20 animate-float-delayed"></div>
+        <div class="blob bg-yellow-100 w-64 h-64 top-1/2 left-1/3 opacity-30 animate-pulse"></div>
+    </div>
+
+    <!-- Navbar (Glass) -->
+    <nav id="navbar" class="fixed w-full z-50 transition-all duration-500 py-6">
+        <div class="container mx-auto px-8 max-w-7xl">
+            <div id="nav-container" class="flex justify-between items-center rounded-full px-8 py-4 transition-all duration-300">
+                <a href="#" class="text-2xl font-bold font-serif text-orange-900 tracking-wider relative group">
+                    Hi Curl.
+                    <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-orange-600 transition-all duration-300 group-hover:w-full"></span>
+                </a>
+                
+                <div class="hidden md:flex space-x-10 font-medium text-stone-600 text-sm tracking-wide">
+                    <a href="#home" class="hover:text-orange-600 transition-colors relative group">
+                        Beranda
+                        <span class="absolute -bottom-1 left-1/2 w-0 h-0.5 bg-orange-400 transition-all duration-300 group-hover:w-full group-hover:left-0"></span>
+                    </a>
+                    <a href="#consultation" class="hover:text-orange-600 transition-colors relative group">
+                        Konsultasi
+                         <span class="absolute -bottom-1 left-1/2 w-0 h-0.5 bg-orange-400 transition-all duration-300 group-hover:w-full group-hover:left-0"></span>
+                    </a>
+                    <a href="Tab shop.html" class="hover:text-orange-600 transition-colors relative group">
+                        Produk
+                         <span class="absolute -bottom-1 left-1/2 w-0 h-0.5 bg-orange-400 transition-all duration-300 group-hover:w-full group-hover:left-0"></span>
+                    </a>
+                    <a href="#education" class="hover:text-orange-600 transition-colors relative group">
+                        Edukasi
+                         <span class="absolute -bottom-1 left-1/2 w-0 h-0.5 bg-orange-400 transition-all duration-300 group-hover:w-full group-hover:left-0"></span>
+                    </a>
+                </div>
+
+                <div class="flex items-center space-x-6">
+                    <button onclick="document.location='login page.html'"class="hidden md:block bg-stone-900 text-white px-6 py-2.5 rounded-full text-sm font-medium hover:bg-orange-700 hover:shadow-lg hover:shadow-orange-200 transition-all duration-300 transform hover:-translate-y-0.5">
+                        Member Login
+                    </button>
+                    <button id="menu-btn" class="md:hidden text-stone-800 hover:bg-stone-100 p-2 rounded-full transition-colors">
+                        <i data-lucide="menu" class="w-6 h-6"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu (Glass) -->
+        <div id="mobile-menu" class="hidden absolute top-24 left-4 right-4 glass rounded-2xl p-6 flex-col space-y-4 md:hidden shadow-xl transform origin-top transition-all duration-300">
+            <a href="#home" class="text-stone-700 font-medium block py-3 px-4 hover:bg-white/50 rounded-xl transition-colors" onclick="toggleMenu()">Beranda</a>
+            <a href="#consultation" class="text-stone-700 font-medium block py-3 px-4 hover:bg-white/50 rounded-xl transition-colors" onclick="toggleMenu()">Konsultasi</a>
+            <a href="#products" class="text-stone-700 font-medium block py-3 px-4 hover:bg-white/50 rounded-xl transition-colors" onclick="toggleMenu()">Produk</a>
+            <button class="bg-orange-600 text-white px-4 py-3 rounded-xl text-center font-bold w-full shadow-lg">Login</button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="relative min-h-screen flex items-center pt-32 pb-20">
+        <!-- Abstract Shape Behind -->
+        <div class="absolute top-0 right-0 w-[45%] h-full bg-gradient-to-b from-orange-100/50 to-transparent rounded-bl-[150px] -z-10 hidden md:block backdrop-blur-3xl"></div>
+        
+        <div class="container mx-auto px-8 max-w-7xl grid md:grid-cols-2 gap-20 items-center">
+            <div class="space-y-10 reveal active">
+                <div class="inline-flex items-center gap-2 px-4 py-2 bg-white/60 backdrop-blur-sm border border-white/50 text-green-800 rounded-full text-sm font-semibold tracking-wide shadow-sm hover:shadow-md transition-all cursor-default">
+                    <span class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
+                    #EmbraceYourCurls
+                </div>
+                
+                <h1 class="text-6xl md:text-8xl font-serif leading-[1.1] text-stone-900 tracking-tight">
+                    Jangan Lawan <br/>
+                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-orange-600 to-amber-600 italic pr-2">Ikal Alami</span> Kamu.
+                </h1>
+                
+                <p class="text-xl text-stone-600 leading-loose max-w-lg font-light">
+                    Rambut keriting nggak perlu dilurusin buat keliatan cakep. Tunjukin aja potensinya biar tetap rapi, nggak gampang kusut, dan bikin kamu makin pede.
+                </p>
+                
+                <div class="flex flex-col sm:flex-row gap-6 pt-4">
+                    <a href="#consultation" 
+                        class="group px-8 py-5 bg-stone-900 text-white rounded-full font-medium shadow-xl hover:bg-orange-700 hover:shadow-orange-200/50 transition-all duration-300 flex items-center justify-center gap-3 transform hover:-translate-y-1"
+                    >
+                        Cek Masalah Rambutmu 
+                        <i data-lucide="arrow-right" class="w-5 h-5 group-hover:translate-x-1 transition-transform"></i>
+                    </a>
+                    <a href="Tab shop.html" class="px-8 py-5 border border-stone-300 text-stone-600 rounded-full font-medium hover:border-stone-900 hover:text-stone-900 hover:bg-white/50 transition-all duration-300 text-center backdrop-blur-sm">
+                        Lihat Katalog
+                    </a>
+                </div>
+                
+                <div class="flex items-center gap-6 pt-8 border-t border-stone-200/50">
+                    <div class="flex -space-x-4">
+                        <div class="w-12 h-12 rounded-full border-4 border-white shadow-md overflow-hidden hover:scale-110 transition-transform duration-300 z-10">
+                            <img src="foto4.jpg" alt="User" class="w-full h-full object-cover">
+                        </div>
+                        <div class="w-12 h-12 rounded-full border-4 border-white shadow-md overflow-hidden hover:scale-110 transition-transform duration-300 z-20">
+                            <img src="foto2.jpg" alt="User" class="w-full h-full object-cover">
+                        </div>
+                        <div class="w-12 h-12 rounded-full border-4 border-white shadow-md overflow-hidden hover:scale-110 transition-transform duration-300 z-30">
+                            <img src="foto3.jpg" alt="User" class="w-full h-full object-cover">
+                        </div>
+                    </div>
+                    <div>
+                        <div class="flex text-yellow-500 space-x-1 mb-1">
+                            <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                            <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                            <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                            <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                            <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                        </div>
+                        <p class="text-sm font-medium text-stone-500">50+ Komunitas Hi Curl.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="relative reveal delay-200">
+                <div class="relative z-10 rounded-[4rem] overflow-hidden shadow-2xl animate-float group">
+                    <div class="absolute inset-0 bg-gradient-to-t from-stone-900/60 to-transparent z-10 opacity-60 group-hover:opacity-40 transition-opacity duration-500"></div>
+                    <img 
+                        src="foto1.jpg"
+                        class="w-full h-[700px] object-cover transition-transform duration-1000 group-hover:scale-105"
+                    />
+                    
+                    <!-- Glass Floating Card on Image -->
+                    <div class="absolute bottom-12 left-8 right-8 p-6 glass rounded-3xl z-20 transform transition-all duration-500 hover:scale-105">
+                        <div class="flex items-start gap-4">
+                            <div class="p-3 bg-orange-100 rounded-full text-orange-600">
+                                <i data-lucide="quote" class="w-5 h-5 fill-current"></i>
+                            </div>
+                            <div>
+                                <p class="font-serif italic text-xl text-stone-800 mb-2">"Finally, aku bisa ubah rambut singaku jadi lebih bagus!"</p>
+                                <p class="text-xs font-bold uppercase tracking-wider text-white-500">- Ocat, Member sejak 2024</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Decorative elements -->
+                <div class="absolute -top-12 -right-12 text-orange-200/50 animate-spin-slow pointer-events-none">
+                    <i data-lucide="sparkles" class="w-32 h-32"></i>
+                </div>
+                <div class="absolute top-1/2 -left-12 w-24 h-24 bg-gradient-to-br from-orange-300 to-amber-200 rounded-full blur-2xl opacity-40 animate-pulse"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Interactive Consultation Section -->
+    <section id="consultation" class="py-32 relative">
+        <div class="container mx-auto px-8 max-w-7xl relative z-10">
+            <div class="text-center max-w-3xl mx-auto mb-20 reveal">
+                <span class="text-orange-600 font-bold tracking-[0.2em] uppercase text-xs mb-4 block">Identifikasi Masalahmu</span>
+                <h2 class="text-5xl font-serif font-bold text-stone-900 mb-6">Kenapa Rambutmu <br/> Susah Diatur?</h2>
+                <p class="text-stone-500 text-lg font-light leading-relaxed">Setiap jenis ikal punya tantangan unik. Pilih di bawah ini yang paling mewakili kondisimu saat ini.</p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-10" id="problem-grid">
+                
+                <!-- Problem 1 -->
+                <div class="problem-card group glass-card rounded-[2rem] p-10 cursor-pointer relative overflow-hidden reveal delay-100" data-id="1">
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-orange-100 rounded-full filter blur-[60px] opacity-0 group-hover:opacity-60 transition-opacity duration-500"></div>
+                    
+                    <div class="icon-container w-20 h-20 rounded-2xl flex items-center justify-center mb-8 bg-white shadow-lg text-stone-800 transition-all duration-500 group-hover:scale-110 group-hover:rotate-3">
+                        <i data-lucide="droplets" class="w-8 h-8"></i>
+                    </div>
+                    <h3 class="text-3xl font-serif font-bold mb-4 text-stone-800 group-hover:text-orange-800 transition-colors">Kering & Patah</h3>
+                    <p class="text-stone-500 mb-8 leading-relaxed">Rambut terasa kasar seperti jerami, kusam, dan mudah patah saat disisir.</p>
+                    
+                    <div class="accordion-content">
+                        <div class="pt-6 border-t border-stone-200/50">
+                            <div class="mb-6">
+                                <p class="text-xs font-bold text-stone-400 uppercase tracking-wider mb-2">Solusi Ahli</p>
+                                <p class="text-stone-700 leading-relaxed">Fokus pada <span class="font-bold text-orange-600">Hidrasi Ekstra</span>. Rambut keriting secara alami lebih kering karena minyak alami kulit kepala sulit turun ke batang rambut yang bergelombang.</p>
+                            </div>
+                            <div class="bg-orange-50/80 p-5 rounded-2xl border border-orange-100 mb-6 backdrop-blur-sm">
+                                <p class="flex items-center gap-2 text-xs font-bold text-orange-700 uppercase tracking-wider mb-2">
+                                    <i data-lucide="lightbulb" class="w-4 h-4"></i> Pro Tip
+                                </p>
+                                <p class="text-sm italic text-stone-600">"Gunakan metode 'Squish to Condish' saat keramas dan ganti handuk biasa dengan kaos katun."</p>
+                            </div>
+                            <a href="Tab shop.html" class="flex items-center justify-center w-full py-4 bg-stone-900 text-white rounded-xl font-medium hover:bg-orange-600 hover:shadow-lg hover:shadow-orange-200 transition-all duration-300 transform active:scale-95">
+                                Lihat Produk Rekomendasi
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="view-solution-text flex items-center text-orange-600 font-bold text-sm tracking-wide mt-2 group-hover:translate-x-2 transition-transform">
+                        Buka Solusi <i data-lucide="chevron-down" class="ml-2 w-4 h-4"></i>
+                    </div>
+                </div>
+
+                <!-- Problem 2 -->
+                <div class="problem-card group glass-card rounded-[2rem] p-10 cursor-pointer relative overflow-hidden reveal delay-200" data-id="2">
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-blue-100 rounded-full filter blur-[60px] opacity-0 group-hover:opacity-60 transition-opacity duration-500"></div>
+                    
+                    <div class="icon-container w-20 h-20 rounded-2xl flex items-center justify-center mb-8 bg-white shadow-lg text-stone-800 transition-all duration-500 group-hover:scale-110 group-hover:-rotate-3">
+                        <i data-lucide="wind" class="w-8 h-8"></i>
+                    </div>
+                    <h3 class="text-3xl font-serif font-bold mb-4 text-stone-800 group-hover:text-orange-800 transition-colors">Kusut & Frizzy</h3>
+                    <p class="text-stone-500 mb-8 leading-relaxed">Rambut mekar tidak beraturan (frizzy) dan sulit diatur, terutama saat cuaca lembab.</p>
+                    
+                    <div class="accordion-content">
+                        <div class="pt-6 border-t border-stone-200/50">
+                            <div class="mb-6">
+                                <p class="text-xs font-bold text-stone-400 uppercase tracking-wider mb-2">Solusi Ahli</p>
+                                <p class="text-stone-700 leading-relaxed">Kunci <span class="font-bold text-orange-600">Kelembaban & Hold</span>. Frizz terjadi saat rambut kering mencoba menyerap kelembaban dari udara sekitar.</p>
+                            </div>
+                            <div class="bg-orange-50/80 p-5 rounded-2xl border border-orange-100 mb-6 backdrop-blur-sm">
+                                <p class="flex items-center gap-2 text-xs font-bold text-orange-700 uppercase tracking-wider mb-2">
+                                    <i data-lucide="lightbulb" class="w-4 h-4"></i> Pro Tip
+                                </p>
+                                <p class="text-sm italic text-stone-600">"JANGAN sisir rambut saat kering! Gunakan Gel atau Styling Cream saat rambut masih basah kuyup."</p>
+                            </div>
+                            <a href="Tab shop.html" class="flex items-center justify-center w-full py-4 bg-stone-900 text-white rounded-xl font-medium hover:bg-orange-600 hover:shadow-lg hover:shadow-orange-200 transition-all duration-300 transform active:scale-95">
+                                Lihat Produk Rekomendasi
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="view-solution-text flex items-center text-orange-600 font-bold text-sm tracking-wide mt-2 group-hover:translate-x-2 transition-transform">
+                        Buka Solusi <i data-lucide="chevron-down" class="ml-2 w-4 h-4"></i>
+                    </div>
+                </div>
+
+                <!-- Problem 3 -->
+                <div class="problem-card group glass-card rounded-[2rem] p-10 cursor-pointer relative overflow-hidden reveal delay-300" data-id="3">
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-purple-100 rounded-full filter blur-[60px] opacity-0 group-hover:opacity-60 transition-opacity duration-500"></div>
+
+                    <div class="icon-container w-20 h-20 rounded-2xl flex items-center justify-center mb-8 bg-white shadow-lg text-stone-800 transition-all duration-500 group-hover:scale-110 group-hover:rotate-3">
+                        <i data-lucide="sparkles" class="w-8 h-8"></i>
+                    </div>
+                    <h3 class="text-3xl font-serif font-bold mb-4 text-stone-800 group-hover:text-orange-800 transition-colors">Ikal Tak Jelas</h3>
+                    <p class="text-stone-500 mb-8 leading-relaxed">Bentuk keriting tidak terdefinisi, terlihat lepek di akar atau lurus di beberapa bagian.</p>
+                    
+                    <div class="accordion-content">
+                        <div class="pt-6 border-t border-stone-200/50">
+                            <div class="mb-6">
+                                <p class="text-xs font-bold text-stone-400 uppercase tracking-wider mb-2">Solusi Ahli</p>
+                                <p class="text-stone-700 leading-relaxed"><span class="font-bold text-orange-600">Protein & Teknik Styling</span>. Rambutmu mungkin butuh struktur protein atau teknik styling yang lebih baik.</p>
+                            </div>
+                            <div class="bg-orange-50/80 p-5 rounded-2xl border border-orange-100 mb-6 backdrop-blur-sm">
+                                <p class="flex items-center gap-2 text-xs font-bold text-orange-700 uppercase tracking-wider mb-2">
+                                    <i data-lucide="lightbulb" class="w-4 h-4"></i> Pro Tip
+                                </p>
+                                <p class="text-sm italic text-stone-600">"Coba teknik 'Finger Coiling' atau gunakan Denman Brush untuk membentuk ikal yang lebih tegas."</p>
+                            </div>
+                            <a href="Tab shop.html" class="flex items-center justify-center w-full py-4 bg-stone-900 text-white rounded-xl font-medium hover:bg-orange-600 hover:shadow-lg hover:shadow-orange-200 transition-all duration-300 transform active:scale-95">
+                                Lihat Produk Rekomendasi
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="view-solution-text flex items-center text-orange-600 font-bold text-sm tracking-wide mt-2 group-hover:translate-x-2 transition-transform">
+                        Buka Solusi <i data-lucide="chevron-down" class="ml-2 w-4 h-4"></i>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Routine Education Section -->
+    <section id="education" class="py-32 bg-stone-900 text-stone-200 relative overflow-hidden">
+        <!-- Background Orbs -->
+        <div class="absolute top-0 right-0 w-[600px] h-[600px] bg-orange-600/20 rounded-full blur-[120px] pointer-events-none"></div>
+        <div class="absolute bottom-0 left-0 w-[400px] h-[400px] bg-stone-700/30 rounded-full blur-[100px] pointer-events-none"></div>
+
+        <div class="container mx-auto px-8 max-w-7xl relative z-10">
+            <div class="grid md:grid-cols-2 gap-24 items-center">
+                <div class="reveal">
+                    <h2 class="text-5xl font-serif font-bold text-white mb-8">The Curly Method 101</h2>
+                    <p class="text-xl text-stone-400 mb-12 font-light">Kunci rambut keriting yang sehat bukan hanya pada produk mahal, tapi teknik aplikasinya yang tepat.</p>
+                    
+                    <div class="space-y-12">
+                        <div class="flex gap-8 group">
+                            <div class="flex-shrink-0 w-16 h-16 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-orange-400 font-serif font-bold text-2xl group-hover:bg-orange-600 group-hover:text-white transition-all duration-500 shadow-lg group-hover:shadow-orange-900/50">1</div>
+                            <div>
+                                <h3 class="text-2xl font-bold text-white mb-3 group-hover:text-orange-400 transition-colors">Cleansing (Keramas)</h3>
+                                <p class="text-stone-400 leading-relaxed">Jangan keramas setiap hari. Gunakan shampoo bebas sulfat. Fokuskan pijatan hanya di kulit kepala, biarkan busa mengalir ke batang rambut saat dibilas.</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-8 group">
+                            <div class="flex-shrink-0 w-16 h-16 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-orange-400 font-serif font-bold text-2xl group-hover:bg-orange-600 group-hover:text-white transition-all duration-500 shadow-lg group-hover:shadow-orange-900/50">2</div>
+                            <div>
+                                <h3 class="text-2xl font-bold text-white mb-3 group-hover:text-orange-400 transition-colors">Squish to Condish</h3>
+                                <p class="text-stone-400 leading-relaxed">Saat menggunakan kondisioner, remas-remas rambut ke atas (scrunch) dengan banyak air sampai terdengar bunyi "squish". Ini mengunci hidrasi maksimal.</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-8 group">
+                            <div class="flex-shrink-0 w-16 h-16 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-orange-400 font-serif font-bold text-2xl group-hover:bg-orange-600 group-hover:text-white transition-all duration-500 shadow-lg group-hover:shadow-orange-900/50">3</div>
+                            <div>
+                                <h3 class="text-2xl font-bold text-white mb-3 group-hover:text-orange-400 transition-colors">Styling & Drying</h3>
+                                <p class="text-stone-400 leading-relaxed">Aplikasikan gel saat rambut BASAH kuyup. Keringkan dengan Diffuser atau diangin-anginkan (Air Dry). <span class="text-white font-semibold">Pantangan:</span> Jangan sentuh rambut sampai 100% kering!</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="grid grid-cols-2 gap-6 relative reveal delay-200">
+                    <div class="absolute inset-0 bg-orange-500/10 blur-3xl -z-10 rounded-full"></div>
+                   <img src="drying.webp" class="glass-dark rounded-[2rem] object-cover h-80 w-full translate-y-12 shadow-2xl hover:scale-105 transition-transform duration-700" alt="Washing hair">
+                   <img src="scrunch.jpg" class="glass-dark rounded-[2rem] object-cover h-80 w-full shadow-2xl hover:scale-105 transition-transform duration-700" alt="Styling hair">
+                </div>
+            </div>
+        </div>
+    </section>
+	
+    <!-- Newsletter / CTA -->
+    <section class="py-32 relative overflow-hidden">
+        <div class="container mx-auto px-8 max-w-5xl text-center relative z-10">
+            <div class="glass rounded-[3rem] p-16 shadow-2xl relative overflow-hidden reveal">
+                <!-- Inner decoration -->
+                <div class="absolute -top-20 -left-20 w-64 h-64 bg-orange-200 rounded-full blur-[80px] opacity-50"></div>
+                <div class="absolute -bottom-20 -right-20 w-64 h-64 bg-green-200 rounded-full blur-[80px] opacity-50"></div>
+
+                <h2 class="text-4xl font-serif font-bold mb-6 relative z-10">Masih Bingung Mulai Dari Mana?</h2>
+                <p class="text-stone-600 mb-10 max-w-lg mx-auto text-lg relative z-10">
+                    Obrolkan keluh kesah dan tantangan kamu selama merawat rambut keriting bareng Min Hi.
+                </p>
+                    <button onclick="document.location='https://wa.me/6285770383799'" class="px-10 py-4 bg-stone-900 text-white rounded-full font-bold hover:bg-orange-600 transition-colors shadow-xl hover:shadow-orange-200 transform hover:-translate-y-1">
+                        Konsultasi gratis via WhatsApp
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-[#1c1917] text-stone-400 py-10 relative overflow-hidden">
+        <div class="container mx-auto px-8 max-w-7xl mt-1 pt-8 border-t border-white/5 text-center text-xs text-stone-600 flex flex-col md:flex-row justify-between items-center gap-4">
+            <p>© 2024 Hi Curl. Indonesia. All rights reserved.</p>
+            <div class="flex gap-6">
+                <a href="#" class="hover:text-white transition-colors">Privacy Policy</a>
+                <a href="#" class="hover:text-white transition-colors">Terms of Service</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript Logic -->
+    <script>
+        // Initialize Icons
+        lucide.createIcons();
+
+        // DOM Elements
+        const navbar = document.getElementById('navbar');
+        const navContainer = document.getElementById('nav-container');
+        const menuBtn = document.getElementById('menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const problemCards = document.querySelectorAll('.problem-card');
+
+        // Scroll Effect for Navbar (Floating Glass Pill)
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navContainer.classList.add('glass', 'shadow-md', 'py-3');
+                navContainer.classList.remove('py-4');
+            } else {
+                navContainer.classList.remove('glass', 'shadow-md', 'py-3');
+                navContainer.classList.add('py-4');
+            }
+        });
+
+        // Scroll Reveal Animation Observer
+        const revealElements = document.querySelectorAll('.reveal');
+        
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, {
+            threshold: 0.1,
+            rootMargin: "0px 0px -50px 0px"
+        });
+
+        revealElements.forEach(el => revealObserver.observe(el));
+
+        // Mobile Menu Toggle
+        function toggleMenu() {
+            mobileMenu.classList.toggle('hidden');
+            mobileMenu.classList.toggle('flex');
+            
+            if (!mobileMenu.classList.contains('hidden')) {
+                // Simple entry animation
+                mobileMenu.style.opacity = '0';
+                mobileMenu.style.transform = 'translateY(-10px)';
+                setTimeout(() => {
+                    mobileMenu.style.opacity = '1';
+                    mobileMenu.style.transform = 'translateY(0)';
+                }, 10);
+            }
+        }
+
+        menuBtn.addEventListener('click', toggleMenu);
+
+        // Problem Cards Interactive Logic
+        problemCards.forEach(card => {
+            card.addEventListener('click', function() {
+                const isAlreadyActive = this.classList.contains('active-card');
+                
+                // Reset all cards first
+                problemCards.forEach(c => {
+                    // Remove active state
+                    c.classList.remove('active-card', 'border-orange-500', 'bg-white/80', 'ring-1', 'ring-orange-300');
+                    // Reset icon color
+                    const iconContainer = c.querySelector('.icon-container');
+                    iconContainer.classList.remove('bg-orange-500', 'text-white', 'rotate-12');
+                    iconContainer.classList.add('bg-white', 'text-stone-800');
+                    
+                    // Close accordion
+                    const content = c.querySelector('.accordion-content');
+                    content.classList.remove('active');
+
+                    // Show text
+                    const viewText = c.querySelector('.view-solution-text');
+                    viewText.style.display = 'flex';
+                    viewText.style.opacity = '1';
+                });
+
+                // If it wasn't active before, activate it now
+                if (!isAlreadyActive) {
+                    this.classList.add('active-card', 'border-orange-500', 'bg-white/90', 'ring-1', 'ring-orange-300');
+                    
+                    // Animate Icon
+                    const iconContainer = this.querySelector('.icon-container');
+                    iconContainer.classList.remove('bg-white', 'text-stone-800');
+                    iconContainer.classList.add('bg-orange-500', 'text-white', 'rotate-12');
+
+                    // Open Content
+                    const content = this.querySelector('.accordion-content');
+                    content.classList.add('active');
+
+                    // Hide text smoothly
+                    const viewText = this.querySelector('.view-solution-text');
+                    viewText.style.opacity = '0';
+                    setTimeout(() => viewText.style.display = 'none', 300);
+                }
+            });
+        });
+    </script>
+</body>
+</html>
